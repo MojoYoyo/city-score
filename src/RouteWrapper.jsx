@@ -1,15 +1,31 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import App from './App';
 
-const RouteWrapper = ({ children }) => {
-  // Get the base URL from package.json or default to '/'
-  const basename = process.env.PUBLIC_URL || '/';
-  
-  return (
-    <BrowserRouter basename={basename}>
-      {children}
-    </BrowserRouter>
-  );
+// Get the basename from the package.json homepage
+const getBasename = () => {
+  // Extract path from homepage URL if it exists
+  const { homepage } = require('../package.json');
+  if (homepage) {
+    try {
+      const url = new URL(homepage);
+      return url.pathname;
+    } catch (e) {
+      return '/';
+    }
+  }
+  return '/';
 };
+
+function RouteWrapper() {
+  return (
+    <Router basename={getBasename()}>
+      <Routes>
+        <Route path="/" element={<App />} />
+        {/* Add your other routes here */}
+      </Routes>
+    </Router>
+  );
+}
 
 export default RouteWrapper;
