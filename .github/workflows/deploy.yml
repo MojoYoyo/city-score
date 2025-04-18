@@ -1,4 +1,12 @@
 name: Build and Deploy
+
+# grant the workflow the ability to push to gh-pages
+permissions:
+  contents: read       # allows checkout, reading code
+  pages: write         # allows writing to GitHub Pages
+  id-token: write      # required by some actions (e.g. if you ever do OIDC)
+
+  
 on:
   push:
     branches: [ main ]
@@ -28,5 +36,6 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: build # The folder the action should deploy
-          branch: gh-pages # The branch the action should deploy to
+          token: ${{ secrets.GITHUB_TOKEN }}  # <-- ensure you pass it!
+          branch: gh-pages                    # the branch to deploy to
+          folder: build                       # your build output
