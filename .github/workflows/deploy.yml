@@ -1,34 +1,28 @@
 name: Build and Deploy
 
-# grant the workflow the ability to push to gh-pages
 permissions:
-  contents: read       # allows checkout, reading code
-  pages: write         # allows writing to GitHub Pages
-  id-token: write      # required by some actions (e.g. if you ever do OIDC)
+  contents: read
+  pages: write
 
-  
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  # Allow manual triggers
   workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '16'
           cache: 'npm'
-          
-      - name: Install and Build 🔧
+
+      - name: Install & Build
         run: |
           npm ci
           npm run build
@@ -36,6 +30,6 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}  # <-- ensure you pass it!
-          branch: gh-pages                    # the branch to deploy to
-          folder: build                       # your build output
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: build
