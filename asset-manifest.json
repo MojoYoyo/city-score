@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/city-score/static/css/main.796174bb.css",
+    "main.js": "/city-score/static/js/main.6c0f2723.js",
+    "index.html": "/city-score/index.html",
+    "main.796174bb.css.map": "/city-score/static/css/main.796174bb.css.map",
+    "main.6c0f2723.js.map": "/city-score/static/js/main.6c0f2723.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.796174bb.css",
+    "static/js/main.6c0f2723.js"
+  ]
+}
